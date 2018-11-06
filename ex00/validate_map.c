@@ -78,23 +78,22 @@ int		check_symb(char *str, char empty, char obst)
 	int j;
 	int count;
 
-	i = -1;
+	i = skip_first_line(str);
 	j = 0;
-	while(str[++i] != '\n')
-	ft_putnbr(i);
 	count = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		j = 0;
-		while (str[++i] != '\n')
+		while ((str[i] != '\n') && (str[i] != '\0'))
 		{
 			if ((str[i] != empty) && (str[i] != obst))
 				return (0);
 			j++;
+			i++;
 		}
 		if (count < 1)
 			count = j;
-		if (j != count)
+		if ((j != count) || (j == 0))
 			return (0);
 		i++;
 	}

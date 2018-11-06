@@ -32,5 +32,6 @@ int					count_lines(char *str);
 int     			check_symb(char *str, char empty, char obst);
 int 				validate_map(char *str);
 char				*read_input(void);
+int				skip_first_line(char *str);
 
 #endif

@@ -24,3 +24,15 @@ int	parse_nb(char *str)
 	}
 	return (res);
 }
+
+int	skip_first_line(char *str)
+{
+	int i;
+	
+	i = 0;
+	while (str[i] != '\n')
+		i++;
+	i++;
+	return(i);
+}
+	
