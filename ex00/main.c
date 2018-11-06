@@ -17,20 +17,22 @@ int	main(int argc, char **argv)
 	char *str;
 	int a;
 	int i;
+	t_sq *emp;
+	t_sq *obs;
 
 	i = 1;
 	a = 123456789;
 	if (argc < 2)
 	{
 		str = read_input();
-		a = validate_map(str);
+		a = read_map(str, &obs, &emp);
 		ft_putnbr(a);
 	}
 	else
 	{
 		while(i < argc)
 		{
-			a = validate_map(argv[i]);
+			a = read_map(argv[i], &obs, &emp);
 			ft_putnbr(a);
 			ft_putchar('\n');
 			i++;

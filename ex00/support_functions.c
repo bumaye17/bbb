@@ -35,4 +35,10 @@ int	skip_first_line(char *str)
 	i++;
 	return(i);
 }
+
+void	increment_i_j(int *i, int *j)
+{
+	*i = *i + 1;
+	*j = *j + 1;
+}
 	

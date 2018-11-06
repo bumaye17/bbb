@@ -72,47 +72,50 @@ int		count_lines(char *str)
 	return (count);
 }
 
-int		check_symb(char *str, char empty, char obst)
+int		check_symb(char *str, char empty, char obst, int *n_obs)
 {
 	int i;
 	int j;
 	int count;
 
-	i = skip_first_line(str);
+	i = skip_first_line(str) - 1;
 	j = 0;
 	count = 0;
-	while (str[i] != '\0')
+	*n_obs = 0;
+	while (str[++i] != '\0')
 	{
 		j = 0;
 		while ((str[i] != '\n') && (str[i] != '\0'))
 		{
 			if ((str[i] != empty) && (str[i] != obst))
 				return (0);
-			j++;
-			i++;
+			if (str[i] == obst)
+				*n_obs = *n_obs + 1;
+			increment_i_j(&i, &j);
 		}
 		if (count < 1)
 			count = j;
 		if ((j != count) || (j == 0))
 			return (0);
-		i++;
 	}
-	return (1);
+	return (count);
 }
 
 
-int validate_map(char *str)
+int validate_map(char *str, int *coun_ob)
 {
 	int lines;
 	char *symb;
+
 	if ((validate_map_info(str) == 1))
 	{
 		read_map_info(str, &lines, &symb);
 		if (count_lines(str) != lines)
 			return (0);
-		if (check_symb(str, symb[0], symb[1]) == 0)
+		if (check_symb(str, symb[0], symb[1], coun_ob) == 0)
 			return (0);
-		return (1);
+		else
+			return (check_symb(str, symb[0], symb[1], coun_ob));
 	}
 	else
 		return (0);
