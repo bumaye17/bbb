@@ -75,15 +75,23 @@ int read_map(char *str, t_sq **obs, t_sq **emp)
 	
 	n_obs = 0;
 	n_emp = validate_map(str, &n_obs);
-	*obs = malloc(sizeof(t_sq*) * (n_obs + 1));
-	n_emp = n_emp * parse_nb(str) - n_obs;
-	read_map_info(str, &lines, &symb);
-	*emp = malloc(sizeof(t_sq*) * (n_emp + 1));
-	(*obs)[0].x = n_obs;
-	(*emp)[0].x = n_emp;
-	read_symbols(str, symb, obs, emp);
-	a = search(obs, emp, lines, (n_obs + n_emp) / lines);
-	return (a);
+	if (n_emp == 0)
+	{
+		symb = 0;
+		return (-1);
+	}
+	else
+	{
+		*obs = malloc(sizeof(t_sq*) * (n_obs + 1));
+		n_emp = n_emp * parse_nb(str) - n_obs;
+		read_map_info(str, &lines, &symb);
+		*emp = malloc(sizeof(t_sq*) * (n_emp + 1));
+		(*obs)[0].x = n_obs;
+		(*emp)[0].x = n_emp;
+		read_symbols(str, symb, obs, emp);
+		a = search(obs, emp, lines, (n_obs + n_emp) / lines);
+		return (a);
+	}
 }
 
 void	bsq(char *str)
@@ -91,15 +99,14 @@ void	bsq(char *str)
 	t_sq *obs;
 	t_sq *emp;
 	int m;
-	int i;
 
 	obs = 0;
 	emp = 0;
-	if (validate_map(str, &i) == 0)
+	m = read_map(str, &obs, &emp);
+	if (m == -1)
 		ft_puterror("error\n");
 	else
 	{
-		m = read_map(str, &obs, &emp);
 		print_map(m, obs[0].y, emp[0].y, str);
 		free(obs);
 		free(emp);
