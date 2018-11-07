@@ -30,8 +30,8 @@ void read_symbols(char *str, char *symb, t_sq **obs, t_sq **emp)
 	int c_emp;
 
 	i = skip_first_line(str);
-	c_obs = 0;
-	c_emp = 0;
+	c_obs = 1;
+	c_emp = 1;
 	y = 0;
 	while (str[i])
 	{
@@ -81,10 +81,14 @@ int read_map(char *str, t_sq **obs, t_sq **emp)
 	}
 	else
 	{
-		*obs = malloc(sizeof(t_sq*) * n_obs);
+		*obs = malloc(sizeof(t_sq*) * (n_obs + 1));
 		n_emp = n_emp * parse_nb(str) - n_obs;
 		read_map_info(str, &lines, &symb);
-		*emp = malloc(sizeof(t_sq*) * n_emp);
+		*emp = malloc(sizeof(t_sq*) * (n_emp + 1));
+		(*obs)[0].x = n_obs;
+		(*obs)[0].y = n_obs;
+		(*emp)[0].x = n_emp;
+		(*emp)[0].y = n_emp;
 		read_symbols(str, symb, obs, emp);
 		print_list(obs, n_obs);
 		ft_putchar('\n');
