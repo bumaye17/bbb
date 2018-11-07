@@ -17,24 +17,20 @@ int	main(int argc, char **argv)
 	char *str;
 	int a;
 	int i;
-	t_sq *emp;
-	t_sq *obs;
 
 	i = 1;
 	a = 123456789;
 	if (argc < 2)
 	{
 		str = read_input();
-		a = read_map(str, &obs, &emp);
-		ft_putnbr(a);
+		bsq(str);
 	}
 	else
 	{
 		while(i < argc)
 		{
-			a = read_map(argv[i], &obs, &emp);
-			ft_putnbr(a);
-			ft_putchar('\n');
+			str =read_file(argv[i]);
+			bsq(str);
 			i++;
 		}
 	}

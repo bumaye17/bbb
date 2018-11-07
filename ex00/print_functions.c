@@ -29,6 +29,18 @@ void	ft_putstr(char *str)
 	}
 }
 
+void	ft_puterror(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		write(2, (str + i), 1);
+		i++;
+	}
+}
+
 void	ft_putnbr(int nb)
 {
 	if (nb == -2147483648)

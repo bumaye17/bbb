@@ -12,56 +12,38 @@
 
 #include "headers.h"
 
-int	max_possible_sq(t_sq sq, int t_h, int t_w)
+void set_answer(t_sq **obs, t_sq **emp, int *m, int i)
 {
-	t_h = t_h - sq.y;
-	t_w = t_w - sq.x;
-	
-	if (t_h <= t_w)
-		return (t_h);
-	else
-		return (t_w);
+	*m = *m + 1;
+	(*obs)[0].y = (*emp)[i].y;
+	(*emp)[0].y = (*emp)[i].x;
 }
-	
-t_sq	max_c(t_sq origin, int dim)
-{
-	t_sq dest;
+		
 
-	dest.x = origin.x + dim - 1;
-	dest.y = origin.y + dim - 1;
-	return(dest);
-}
-
-int	is_inside_sq(t_sq sq, t_sq orig, t_sq dest)
+int search(t_sq **obs, t_sq **emp, int h, int w)
 {
-	if ((sq.x >= orig.x) && (sq.y >= orig.y) &&
-			(sq.x <= dest.x) && (sq.y <= dest.y))
+	int i;
+	int b;
+	int j;
+	int m;
+
+	m = 1;
+	(*obs)[0].y = 0;
+	(*emp)[0].y = 0;
+	i = 1;
+	j = 1;
+	while (i <= (*emp)[0].x)
 	{
-		return (1);
+		b = max_possible_sq((*emp)[i], h, w);
+		skip_obs((*emp)[i], (*obs), &j);
+		while (m <= b)
+		{
+			if(if_fits((*obs), j, (*emp)[i], max_c((*emp)[i], m)) == 1)
+				set_answer(obs, emp, &m, i);
+			else
+				b = m - 1;
+		}
+		i++;
 	}
-	else
-	{
-		return (0);
-	}
-}
-
-int	if_fits(t_sq *obs, int i, t_sq min, t_sq max)
-{
-	while(i <= obs[0].x)
-	{
-		if (is_inside_sq(obs[i], min, max) == 1)
-			return (0);
-		if (((obs[i]).x >= max.x) && ((obs[i]).y >= max.y))
-			i = obs[0].x + 1;
-		else
-			i++;
-	}
-	return (1);
-}
-
-int	skip_obs(t_sq org, t_sq *obs, int *i)
-{
-	while (((obs[*i]).x <= org.x) && ((obs[*i]).y <= org.y))
-		*i = *i + 1;
-	return (*i);
+	return (m - 1);
 }	

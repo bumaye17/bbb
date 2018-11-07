@@ -45,5 +45,14 @@ void				increment_i_j(int *i, int *j);
 void				read_values(t_sq **list, int x, int y, int *count);
 void				read_symbols(char *str, char *symb, t_sq **obs, t_sq **emp);
 int				read_map(char *str, t_sq **obs, t_sq **emp);
-
+int				max_possible_sq(t_sq sq, int t_h, int t_w);
+t_sq				max_c(t_sq origin, int dim);
+int				is_inside_sq(t_sq sq, t_sq orig, t_sq dest);
+int				if_fits(t_sq *obs, int i, t_sq min, t_sq max);
+int				skip_obs(t_sq org, t_sq *obs, int *i);
+int 				search(t_sq **obs, t_sq **emp, int h, int w);
+char				*read_file(char *file_name);
+void    			bsq(char *str);
+void				print_map(int m, int y_o, int x_o, char *str);
+void				ft_puterror(char *str);
 #endif
