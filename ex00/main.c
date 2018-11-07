@@ -15,11 +15,9 @@
 int	main(int argc, char **argv)
 {
 	char *str;
-	int a;
 	int i;
 
-	i = 1;
-	a = 123456789;
+	i = 1;;
 	if (argc < 2)
 	{
 		str = read_input();
@@ -29,7 +27,7 @@ int	main(int argc, char **argv)
 	{
 		while(i < argc)
 		{
-			str =read_file(argv[i]);
+			str = read_file(argv[i]);
 			bsq(str);
 			i++;
 		}
